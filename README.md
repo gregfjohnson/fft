@@ -30,20 +30,20 @@ its fundamental frequency.
 
 Here is a simple example:
 
-fft
-1
-0
-1
-0
-1
-0
-<eof>
- 1.224744871392 0.000000000000
- 0.000000000000 0.000000000000
--0.000000000000 0.000000000000
- 1.224744871392 0.000000000000
- 0.000000000000 0.000000000000
--0.000000000000 0.000000000000
+    fft
+    1
+    0
+    1
+    0
+    1
+    0
+    <eof>
+     1.224744871392 0.000000000000
+     0.000000000000 0.000000000000
+    -0.000000000000 0.000000000000
+     1.224744871392 0.000000000000
+     0.000000000000 0.000000000000
+    -0.000000000000 0.000000000000
 
 The default input is double-precision real values, and
 the default output is cartesian complex numbers (X + iY).
@@ -53,18 +53,18 @@ The following operation represents the identity function on
 its inputs.  The second invocation generates the inverse FFT, and
 takes cartesian complex numbers as input:
 
-fft | fft -b -ic -oa
-1
-2
-3
-101
-105
-<eof>
-1.000000000000
-2.000000000000
-2.999999999999
-101.000000000001
-105.000000000000
+    fft | fft -b -ic -oa
+    1
+    2
+    3
+    101
+    105
+    <eof>
+    1.000000000000
+    2.000000000000
+    2.999999999999
+    101.000000000001
+    105.000000000000
 
 Here are the command-line arguments:
 

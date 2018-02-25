@@ -3,10 +3,13 @@
 -----------------------------------------------------------------------------
 -- Version 0.1.0.
 --[[
-    lua fft implementation.
+    A lua fft implementation.
     fft and inverse fft preserve vector lengths.
 
-    you will also need https://github.com/gregfjohnson/cmath.
+    To install, copy fft.lua and primes.lua to one of the standard lua
+    path directories.
+
+    You will also need https://github.com/gregfjohnson/cmath.
 
     Usage:
     -- require returns a function:

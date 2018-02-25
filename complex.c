@@ -12,6 +12,10 @@
 #include "complex.h"
 #include "primes.h"
 
+static bool verbose = false;
+static void dbPrint(int chunk, int chunkSize, int i, complex directionalOmega, complex omegaPower,
+                    complex invec[], complex outvec[]);
+
 static double cangle(complex n) {
     return atan2(cimag(n), creal(n)) * 180. / M_PIl;
 }
@@ -113,6 +117,11 @@ static void recFFT(complex *outvec, complex *invec, unsigned int n, bool forward
         for (int chunk = 1; chunk < chunkCount; ++chunk) {
             for (int i = 0; i < n; ++i) {
                 complex omegaPower = cpow(directionalOmega, i * chunk);
+
+                if (verbose) {
+                    dbPrint(chunk, chunkSize, i, directionalOmega, omegaPower, invec, outvec);
+                }
+
                 outvec[i] += invec[chunk * chunkSize + i%chunkSize] * omegaPower;
             }
         }
@@ -194,6 +203,21 @@ int readDoubleFile(complex **inputvec, FILE *input) {
     return used;
 }
 
+static void dbPrint(int chunk, int chunkSize, int i, complex directionalOmega, complex omegaPower,
+                    complex invec[], complex outvec[])
+{
+    printf("%d %d <%.2f + %.2fi> <%.2f + %.2fi> "
+           "|| <%.2f + %.2fi> + <%.2f + %.2fi> -> <%.2f + %.2fi>\n",
+           chunk, i,
+           creal(directionalOmega), cimag(directionalOmega),
+           creal(omegaPower), cimag(omegaPower),
+           creal(invec[chunk * chunkSize + i%chunkSize] * omegaPower),
+               cimag(invec[chunk * chunkSize + i%chunkSize] * omegaPower),
+           creal(outvec[i]),
+               cimag(outvec[i]),
+           creal(outvec[i] + invec[chunk * chunkSize + i%chunkSize] * omegaPower),
+               cimag(outvec[i] + invec[chunk * chunkSize + i%chunkSize] * omegaPower));
+}
 #ifdef UNIT_TEST
 
 static void testPrimes() {
